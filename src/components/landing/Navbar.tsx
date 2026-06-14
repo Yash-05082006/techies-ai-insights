@@ -87,10 +87,3 @@ export function Navbar() {
   );
 }
 
-function IconButton({ children }: { children: React.ReactNode }) {
-  return (
-    <button className="grid h-9 w-9 place-items-center rounded-lg text-[#475569] transition-all hover:bg-[#0F172A]/[0.05] hover:text-[#0F172A] active:scale-95">
-      {children}
-    </button>
-  );
-}
