@@ -9,7 +9,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   return (
-    <section className="relative pt-20 pb-32">
+    <section id="hero" className="relative pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-24 lg:pb-24">
       <AuraBackground />
       <div className="mx-auto max-w-7xl px-6">
         {/* eyebrow */}
@@ -21,9 +21,8 @@ export function Hero() {
         >
           <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
           <span className="text-[12px] font-medium text-[#475569]">
-            Introducing the AI Optimization Agent
+            LLM Observability & Cost Optimization
           </span>
-          <span className="text-[12px] font-medium text-[#2563EB]">Read more →</span>
         </motion.div>
 
         {/* Headline */}
@@ -34,9 +33,9 @@ export function Hero() {
             hidden: {},
             show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
           }}
-          className="mx-auto mt-8 max-w-5xl text-center text-[56px] font-semibold leading-[1.02] tracking-[-0.035em] text-[#0F172A] sm:text-[72px] lg:text-[88px]"
+          className="mx-auto mt-8 max-w-5xl text-center text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-[#0F172A] sm:text-[60px] lg:text-[80px]"
         >
-          {["Monitor AI Usage.", "Track Costs.", "Optimize LLM Spend."].map((line, i) => (
+          {["Your AI Costs Are Growing.", "Can You Explain Why?"].map((line, i) => (
             <motion.span
               key={line}
               variants={{
@@ -46,7 +45,7 @@ export function Hero() {
               transition={{ duration: 0.9, ease }}
               className="block"
             >
-              {i === 2 ? <span className="text-gradient">{line}</span> : line}
+              {i === 1 ? <span className="text-gradient">{line}</span> : line}
             </motion.span>
           ))}
         </motion.h1>
@@ -57,9 +56,8 @@ export function Hero() {
           transition={{ delay: 0.5, duration: 0.8, ease }}
           className="mx-auto mt-7 max-w-2xl text-center text-[17px] leading-relaxed text-[#475569]"
         >
-          The observability platform built for AI-native teams. Trace every request,
-          measure token-level cost, and let our optimization agent cut your LLM
-          spend by up to 60% without sacrificing quality.
+          TRACEai helps teams monitor usage, trace requests, identify cost leaks 
+          and optimize AI spend before it becomes a problem.
         </motion.p>
 
         {/* CTAs */}
@@ -69,15 +67,15 @@ export function Hero() {
           transition={{ delay: 0.65, duration: 0.8, ease }}
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
-          <button className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-[#0F172A] px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:scale-[1.02] active:scale-[0.98]">
+          <button className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-[#0F172A] px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]">
             <span className="absolute inset-0 -z-10 bg-gradient-to-r from-[#2563EB] to-[#0EA5E9] opacity-0 transition-opacity group-hover:opacity-100" />
             <span className="absolute -inset-2 -z-20 rounded-2xl bg-[#2563EB]/40 opacity-0 blur-xl transition-opacity group-hover:opacity-100" />
-            Get Started
+            See Live Demo
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </button>
-          <button className="group inline-flex items-center gap-2 rounded-xl border border-[#0F172A]/10 bg-white/70 px-6 py-3.5 text-[14px] font-semibold text-[#0F172A] backdrop-blur transition-all hover:bg-white hover:shadow-lg">
+          <button className="group inline-flex items-center gap-2 rounded-xl border border-[#0F172A]/10 bg-white/70 px-6 py-3.5 text-[14px] font-semibold text-[#0F172A] backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-lg active:scale-[0.98]">
             <PlayCircle className="h-4 w-4 text-[#2563EB]" />
-            View Demo
+            Get Started Free
           </button>
         </motion.div>
 
@@ -100,7 +98,7 @@ export function Hero() {
           >
             <img
               src={heroVisual}
-              alt="Techies LLM observability data flow visualization"
+              alt="TRACEai LLM data flow visualization"
               className="mx-auto h-auto w-full select-none mix-blend-multiply opacity-80"
               style={{
                 maskImage:

@@ -11,50 +11,50 @@ import {
 const features = [
   {
     icon: Activity,
-    title: "AI Usage Monitoring",
-    desc: "Trace every prompt, completion, tool call, and agent step with millisecond fidelity across every model.",
+    title: "See Every Request",
+    desc: "Watch exactly what your AI apps are doing in real-time, step by step.",
     accent: "#2563EB",
   },
   {
     icon: Coins,
-    title: "Token Tracking",
-    desc: "Per-user, per-feature, per-prompt token accounting. Detect runaway loops before they bill you.",
+    title: "Track Token Costs",
+    desc: "Know exactly which users and features are costing you the most money.",
     accent: "#0EA5E9",
   },
   {
     icon: LineChart,
-    title: "Cost Analytics",
-    desc: "Multi-dimensional breakdowns by model, environment, customer, and feature. Forecast next month with confidence.",
+    title: "Understand Your Bills",
+    desc: "Break down your expenses by model and project so you never get a surprise bill.",
     accent: "#10B981",
   },
   {
     icon: Gauge,
-    title: "Performance Monitoring",
-    desc: "p50, p95, p99 latency by route and model. Compare providers side-by-side with statistical rigor.",
+    title: "Monitor App Speed",
+    desc: "Make sure your AI isn't slowing down your application and compare different models.",
     accent: "#F59E0B",
   },
   {
     icon: ShieldCheck,
-    title: "Reliability Tracking",
-    desc: "Live SLA scoring, fallback chains, rate-limit detection, and PII redaction baked into the pipeline.",
+    title: "Keep AI Reliable",
+    desc: "Catch errors, rate limits, and broken responses before your users do.",
     accent: "#6366F1",
   },
   {
     icon: Sparkles,
-    title: "Optimization Agent",
-    desc: "Autonomous recommendations: model routing, caching, prompt compression, context pruning. With evaluated impact.",
+    title: "Find Ways to Reduce AI Costs",
+    desc: "Get automated suggestions on how to cut your AI bill without losing quality.",
     accent: "#EF4444",
   },
 ];
 
 export function Features() {
   return (
-    <section className="relative py-32">
+    <section id="features" className="relative py-12 md:py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader
           eyebrow="Platform"
-          title="Six surfaces. One source of truth."
-          desc="Every signal you need to operate AI in production, in one elegantly composed workspace."
+          title="Everything you need to monitor, understand and reduce AI costs."
+          desc="See exactly what your AI is doing, how much it costs, and where you can save money."
         />
 
         <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -66,7 +66,7 @@ export function Features() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -4 }}
-              className="group relative overflow-hidden rounded-3xl border border-[#0F172A]/8 bg-white p-7 transition-all hover:soft-shadow"
+              className="group relative overflow-hidden rounded-3xl border border-[#0F172A]/8 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               {/* Glow on hover */}
               <div
@@ -74,7 +74,7 @@ export function Features() {
                 style={{ background: `radial-gradient(circle at top left, ${f.accent}, transparent 60%)` }}
               />
               <div
-                className="relative grid h-12 w-12 place-items-center rounded-2xl text-white"
+                className="relative grid h-12 w-12 place-items-center rounded-2xl text-white transition-transform duration-300 group-hover:scale-110"
                 style={{ background: `linear-gradient(135deg, ${f.accent}, ${f.accent}99)` }}
               >
                 <f.icon className="h-5 w-5" />

@@ -5,38 +5,38 @@ import { SectionHeader } from "./Features";
 const steps = [
   {
     icon: Plug,
-    title: "Connect AI Application",
-    desc: "Drop in one SDK line, configure a proxy, or stream OTel traces. Live in under 4 minutes.",
-    code: "techies.init({ project: 'prod' })",
+    title: "Connect Your App",
+    desc: "Add one line of code to your app. You'll be up and running in under 4 minutes.",
+    code: "traceai.init({ project: 'prod' })",
   },
   {
     icon: Radio,
-    title: "Monitor AI Requests",
-    desc: "Every request, response, tool call, and embedding is captured with model, cost, and latency context.",
+    title: "See Everything",
+    desc: "We automatically capture every request, response, and cost so you can see what's happening.",
     code: "1,248,491 events / hour",
   },
   {
     icon: BarChart3,
-    title: "Analyze Usage Data",
-    desc: "Slice by environment, customer, feature, model, or prompt template. Pin anything to a shared dashboard.",
+    title: "Understand Your Usage",
+    desc: "View detailed dashboards to see exactly which features and models are driving your costs.",
     code: "GROUP BY feature, model",
   },
   {
     icon: Wand2,
-    title: "Generate Optimization Insights",
-    desc: "The agent proposes routing, caching, and prompt-compression changes with evaluated quality deltas.",
+    title: "Get Saving Suggestions",
+    desc: "We automatically find ways you can save money without hurting your app's performance.",
     code: "+$4,820 / month projected",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section className="relative py-32">
+    <section id="how-it-works" className="relative py-12 md:py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader
           eyebrow="How it works"
-          title="From signal to savings in four steps"
-          desc="A connected flow designed for engineering teams, finance teams, and the agents in between."
+          title="Set up in minutes, save money instantly"
+          desc="A simple process designed to help you get control over your AI applications."
         />
 
         <div className="relative mt-20">
@@ -76,9 +76,9 @@ export function HowItWorks() {
                     className="absolute -inset-8 -z-10 rounded-[40px] opacity-50 blur-3xl"
                     style={{ background: "radial-gradient(closest-side, rgba(37,99,235,0.18), transparent 70%)" }}
                   />
-                  <div className="relative rounded-3xl border border-[#0F172A]/8 bg-white/80 p-6 backdrop-blur-xl soft-shadow">
+                  <div className="relative group rounded-3xl border border-[#0F172A]/8 bg-white/80 p-6 backdrop-blur-xl soft-shadow transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <div className="flex items-center justify-between">
-                      <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#0F172A] text-white">
+                      <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#0F172A] text-white transition-transform duration-300 group-hover:scale-110">
                         <s.icon className="h-5 w-5" />
                       </div>
                       <span className="text-[10px] font-semibold uppercase tracking-wider text-[#94A3B8]">

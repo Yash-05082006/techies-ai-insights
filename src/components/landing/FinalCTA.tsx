@@ -34,15 +34,14 @@ export function FinalCTA() {
               Start free · 14 days
             </span>
             <h2 className="mx-auto mt-6 max-w-3xl text-[52px] font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-[72px]">
-              Bring observability to every token you ship.
+              Take control of your AI costs today.
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-white/60">
-              Connect your first model in under four minutes. See your first
-              optimization recommendation before your coffee gets cold.
+              Get set up in under four minutes and see your first cost-saving recommendation today.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <button className="group inline-flex items-center gap-2 rounded-xl bg-white px-7 py-4 text-[14px] font-semibold text-[#0F172A] transition-transform hover:scale-[1.03] active:scale-[0.98]">
+              <button className="group inline-flex items-center gap-2 rounded-xl bg-white px-7 py-4 text-[14px] font-semibold text-[#0F172A] transition-all hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]">
                 Get Started
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
@@ -65,7 +64,7 @@ export function FinalCTA() {
         <footer className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-[#0F172A]/8 pt-10">
           <div className="flex items-center gap-2">
             <div className="grid h-7 w-7 place-items-center rounded-lg bg-[#0F172A] text-[10px] font-bold text-white">T</div>
-            <span className="text-[13px] font-semibold text-[#0F172A]">Techies</span>
+            <span className="text-[13px] font-semibold text-[#0F172A]">TRACEai</span>
             <span className="text-[12px] text-[#94A3B8]">© 2026</span>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-[#64748B]">

@@ -2,24 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BackgroundSystem } from "@/components/landing/BackgroundSystem";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { MetricsBand } from "@/components/landing/MetricsBand";
+import { Challenges } from "@/components/landing/Challenges";
 import { Features } from "@/components/landing/Features";
 import { HowItWorks } from "@/components/landing/HowItWorks";
-import { OptimizationAgent } from "@/components/landing/OptimizationAgent";
+import { AICostCalculator } from "@/components/landing/AICostCalculator";
 import { Integrations } from "@/components/landing/Integrations";
-import { Testimonials } from "@/components/landing/Testimonials";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Techies — LLM Observability & AI Cost Optimization" },
+      { title: "TRACEai — LLM Observability & AI Cost Optimization" },
       {
         name: "description",
         content:
           "Monitor AI usage, trace every token, and cut LLM spend by up to 60% with an autonomous optimization agent. Built for AI-native teams.",
       },
-      { property: "og:title", content: "Techies — LLM Observability & AI Cost Optimization" },
+      { property: "og:title", content: "TRACEai — LLM Observability & AI Cost Optimization" },
       {
         property: "og:description",
         content:
@@ -45,12 +44,11 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <MetricsBand />
+        <Challenges />
         <Features />
         <HowItWorks />
-        <OptimizationAgent />
+        <AICostCalculator />
         <Integrations />
-        <Testimonials />
         <FinalCTA />
       </main>
     </div>

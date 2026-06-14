@@ -74,9 +74,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Techies — LLM Observability & AI Cost Optimization" },
+      { title: "TRACEai" },
       { name: "description", content: "Monitor AI usage, trace every token, and cut LLM spend by up to 60% with an autonomous optimization agent. Built for AI-native teams." },
-      { property: "og:title", content: "Techies — LLM Observability & AI Cost Optimization" },
+      { property: "og:title", content: "TRACEai" },
       { property: "og:description", content: "Monitor AI usage, trace every token, and cut LLM spend by up to 60% with an autonomous optimization agent. Built for AI-native teams." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

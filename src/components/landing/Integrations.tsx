@@ -5,19 +5,19 @@ const integrations = [
   { name: "OpenAI", desc: "GPT-4o, o1, embeddings, Whisper", color: "#10A37F", letter: "O" },
   { name: "Anthropic", desc: "Claude 3.5 Sonnet, Haiku, Opus", color: "#D4A27F", letter: "A" },
   { name: "Google Gemini", desc: "Gemini 1.5 Pro, Flash, Nano", color: "#4285F4", letter: "G" },
-  { name: "Mistral", desc: "Mistral Large, Codestral, Embed", color: "#FF7000", letter: "M" },
-  { name: "Cohere", desc: "Command R+, Rerank, Embed v3", color: "#39594D", letter: "C" },
-  { name: "Custom APIs", desc: "OpenAI-compatible · OTel traces", color: "#0F172A", letter: "+" },
+  { name: "Meta Llama", desc: "Llama 3, 3.1, 4 Maverick", color: "#0668E1", letter: "L" },
+  { name: "DeepSeek", desc: "DeepSeek-V3, R1, Coder", color: "#1D4ED8", letter: "D" },
+  { name: "Azure OpenAI", desc: "Enterprise GPT-4o, o1", color: "#0078D4", letter: "A" },
 ];
 
 export function Integrations() {
   return (
-    <section className="relative py-32">
+    <section id="integrations" className="relative py-12 md:py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader
           eyebrow="Integrations"
           title="Every model. One pane of glass."
-          desc="Whether you ship with one provider or orchestrate twelve, Techies normalizes traces, costs, and metrics into a single schema."
+          desc="Whether you ship with one provider or orchestrate twelve, TRACEai normalizes traces, costs, and metrics into a single schema."
         />
 
         <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3">
@@ -29,7 +29,7 @@ export function Integrations() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               whileHover={{ y: -4 }}
-              className="group relative overflow-hidden rounded-3xl border border-[#0F172A]/8 bg-white p-6 transition-all hover:soft-shadow"
+              className="group relative overflow-hidden rounded-3xl border border-[#0F172A]/8 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div
                 className="absolute -inset-px -z-10 rounded-3xl opacity-0 blur-2xl transition-opacity group-hover:opacity-40"
@@ -37,7 +37,7 @@ export function Integrations() {
               />
               <div className="flex items-center gap-4">
                 <div
-                  className="grid h-14 w-14 place-items-center rounded-2xl text-[22px] font-bold text-white"
+                  className="grid h-14 w-14 place-items-center rounded-2xl text-[22px] font-bold text-white transition-transform duration-300 group-hover:scale-110"
                   style={{ background: i.color }}
                 >
                   {i.letter}
