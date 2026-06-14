@@ -12,13 +12,13 @@ import { FinalCTA } from "@/components/landing/FinalCTA";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TRACEai — LLM Observability & AI Cost Optimization" },
+      { title: "TRACEai" },
       {
         name: "description",
         content:
           "Monitor AI usage, trace every token, and cut LLM spend by up to 60% with an autonomous optimization agent. Built for AI-native teams.",
       },
-      { property: "og:title", content: "TRACEai — LLM Observability & AI Cost Optimization" },
+      { property: "og:title", content: "TRACEai" },
       {
         property: "og:description",
         content:
