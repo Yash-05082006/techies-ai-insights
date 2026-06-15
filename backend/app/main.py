@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 async def lifespan(_: FastAPI):
     """Initialize resources on startup and clean up on shutdown."""
     logger.info("Starting TRACEai API")
+    logger.info("CORS allow_origins (%d): %s", len(settings.cors_origin_list), settings.cors_origin_list)
     await init_db()
 
     if not await check_database_connection():
@@ -42,11 +43,12 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 
+# CORS must be registered before route handlers so OPTIONS preflight is handled first.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origin_list,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
