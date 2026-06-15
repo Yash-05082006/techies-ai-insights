@@ -17,16 +17,16 @@ export default defineConfig({
         behavior: "error",
         client: {
           files: ["**/server/**"],
-          specifiers: ["server-only"]
-        }
+          specifiers: ["server-only"],
+        },
       },
-      server: { entry: "server" }
+      server: { entry: "server" },
     }),
-    react()
+    react(),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src")
+      "@": path.resolve(__dirname, "./src"),
     },
     dedupe: [
       "react",
@@ -34,11 +34,11 @@ export default defineConfig({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "@tanstack/react-query",
-      "@tanstack/query-core"
-    ]
+      "@tanstack/query-core",
+    ],
   },
   server: {
     host: "::",
-    port: 8080
-  }
+    port: 8080,
+  },
 });

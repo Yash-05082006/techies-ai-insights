@@ -13,11 +13,15 @@ export function FinalCTA() {
           className="relative overflow-hidden rounded-[36px] border border-[#0F172A]/10 bg-gradient-to-br from-[#0F172A] via-[#0F172A] to-[#1E3A8A] p-16 text-center lift-shadow"
         >
           {/* Atmospheric layers */}
-          <div className="absolute inset-0 opacity-[0.06]" style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",
-            backgroundSize: "64px 64px",
-            maskImage: "radial-gradient(ellipse at center, black, transparent 80%)",
-          }} />
+          <div
+            className="absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",
+              backgroundSize: "64px 64px",
+              maskImage: "radial-gradient(ellipse at center, black, transparent 80%)",
+            }}
+          />
           <motion.div
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -63,13 +67,17 @@ export function FinalCTA() {
         {/* Footer */}
         <footer className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-[#0F172A]/8 pt-10">
           <div className="flex items-center gap-2">
-            <div className="grid h-7 w-7 place-items-center rounded-lg bg-[#0F172A] text-[10px] font-bold text-white">T</div>
+            <div className="grid h-7 w-7 place-items-center rounded-lg bg-[#0F172A] text-[10px] font-bold text-white">
+              T
+            </div>
             <span className="text-[13px] font-semibold text-[#0F172A]">TRACEai</span>
             <span className="text-[12px] text-[#94A3B8]">© 2026</span>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] text-[#64748B]">
             {["Platform", "Pricing", "Docs", "Changelog", "Security", "Status"].map((l) => (
-              <a key={l} href="#" className="hover:text-[#0F172A]">{l}</a>
+              <a key={l} href="#" className="hover:text-[#0F172A]">
+                {l}
+              </a>
             ))}
           </div>
         </footer>

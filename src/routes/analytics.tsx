@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell, Card } from "@/components/app/AppShell";
 import { useState } from "react";
 import { Filter } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { InfoTooltip } from "@/components/ui/tooltip";
 
 export const Route = createFileRoute("/analytics")({
   head: () => ({
@@ -9,8 +11,7 @@ export const Route = createFileRoute("/analytics")({
       { title: "Analytics — TRACEai" },
       {
         name: "description",
-        content:
-          "Cost, performance, reliability, and usage analytics across every LLM provider.",
+        content: "Cost, performance, reliability, and usage analytics across every LLM provider.",
       },
     ],
   }),
@@ -18,10 +19,10 @@ export const Route = createFileRoute("/analytics")({
 });
 
 const TABS = [
-  { id: "cost", label: "Cost" },
-  { id: "performance", label: "Performance" },
-  { id: "reliability", label: "Reliability" },
-  { id: "usage", label: "Usage" },
+  { id: "cost", label: "Cost", tooltip: "Analyze overall spend, cost by model, and feature attribution." },
+  { id: "performance", label: "Performance", tooltip: "Monitor token generation speed, latency percentiles, and throughput." },
+  { id: "reliability", label: "Reliability", tooltip: "Track error rates, rate limits, and upstream provider stability." },
+  { id: "usage", label: "Usage", tooltip: "Understand traffic volume, context windows, and endpoint distribution." },
 ] as const;
 type Tab = (typeof TABS)[number]["id"];
 
@@ -55,9 +56,7 @@ function AnalyticsPage() {
                 key={r}
                 onClick={() => setRange(r)}
                 className={`rounded-md px-3 py-1 text-[12px] font-medium ${
-                  range === r
-                    ? "bg-[#0F172A] text-white"
-                    : "text-[#64748B] hover:text-[#0F172A]"
+                  range === r ? "bg-[#0F172A] text-white" : "text-[#64748B] hover:text-[#0F172A]"
                 }`}
               >
                 {r}
@@ -75,11 +74,12 @@ function AnalyticsPage() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`relative px-4 py-2 text-[13px] font-medium transition-colors ${
+            className={`relative flex items-center gap-2 px-4 py-2 text-[13px] font-medium transition-colors ${
               tab === t.id ? "text-[#0F172A]" : "text-[#64748B] hover:text-[#0F172A]"
             }`}
           >
-            {t.label} Analytics
+            <span>{t.label} Analytics</span>
+            {tab === t.id && <InfoTooltip content={t.tooltip} />}
             {tab === t.id && (
               <span className="absolute -bottom-px left-2 right-2 h-0.5 rounded-full bg-[#2563EB]" />
             )}
@@ -115,13 +115,7 @@ function ChartCard({
   );
 }
 
-function AreaChart({
-  data,
-  color = "#2563EB",
-}: {
-  data: number[];
-  color?: string;
-}) {
+function AreaChart({ data, color = "#2563EB", onClick }: { data: number[]; color?: string; onClick?: () => void }) {
   const w = 600;
   const h = 180;
   const max = Math.max(...data);
@@ -134,7 +128,11 @@ function AreaChart({
     .join(" ");
   const id = `area-${color.replace("#", "")}`;
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="h-[180px] w-full">
+    <svg 
+      viewBox={`0 0 ${w} ${h}`} 
+      className={`h-[180px] w-full ${onClick ? "cursor-pointer hover:opacity-80 transition-opacity" : ""}`}
+      onClick={onClick}
+    >
       <defs>
         <linearGradient id={id} x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor={color} stopOpacity="0.2" />
@@ -142,15 +140,7 @@ function AreaChart({
         </linearGradient>
       </defs>
       {[0.25, 0.5, 0.75].map((p) => (
-        <line
-          key={p}
-          x1={0}
-          x2={w}
-          y1={h * p}
-          y2={h * p}
-          stroke="#0F172A"
-          strokeOpacity="0.05"
-        />
+        <line key={p} x1={0} x2={w} y1={h * p} y2={h * p} stroke="#0F172A" strokeOpacity="0.05" />
       ))}
       <polygon points={`0,${h} ${pts} ${w},${h}`} fill={`url(#${id})`} />
       <polyline
@@ -168,15 +158,21 @@ function AreaChart({
 function Bars({
   rows,
   color = "#2563EB",
+  onRowClick,
 }: {
   rows: { label: string; value: number; right?: string }[];
   color?: string;
+  onRowClick?: (row: { label: string; value: number }) => void;
 }) {
   const max = Math.max(...rows.map((r) => r.value));
   return (
-    <ul className="space-y-2.5">
+    <ul className="space-y-1">
       {rows.map((r) => (
-        <li key={r.label}>
+        <li 
+          key={r.label}
+          onClick={() => onRowClick?.(r)}
+          className={`rounded-lg p-1.5 ${onRowClick ? "cursor-pointer hover:bg-[#0F172A]/5 transition-colors" : ""}`}
+        >
           <div className="mb-1 flex items-center justify-between text-[12px]">
             <span className="font-medium text-[#0F172A]">{r.label}</span>
             <span className="text-[#64748B]">{r.right ?? r.value}</span>
@@ -197,19 +193,21 @@ function Bars({
 }
 
 function CostTab() {
+  const navigate = useNavigate({ from: "/analytics" });
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <ChartCard
         title="Cumulative spend"
         hint="Total cost over time · click a point to drill into that hour."
       >
-        <AreaChart data={[12, 22, 30, 42, 56, 68, 84, 102, 118, 138, 162, 192, 220, 252, 284]} />
+        <AreaChart 
+          data={[12, 22, 30, 42, 56, 68, 84, 102, 118, 138, 162, 192, 220, 252, 284]} 
+          onClick={() => navigate({ to: '/logs', search: { time: '24h', fromAnalytics: true, analyticsItem: 'Cumulative spend' } })}
+        />
       </ChartCard>
-      <ChartCard
-        title="Cost by feature"
-        hint="Dollar spend attributed to each product feature."
-      >
+      <ChartCard title="Cost by feature" hint="Dollar spend attributed to each product feature.">
         <Bars
+          onRowClick={(r) => navigate({ to: '/logs', search: { q: r.label, fromAnalytics: true, analyticsItem: r.label } })}
           rows={[
             { label: "doc-summarizer", value: 4820, right: "$4,820" },
             { label: "code-assistant", value: 3120, right: "$3,120" },
@@ -219,12 +217,10 @@ function CostTab() {
           ]}
         />
       </ChartCard>
-      <ChartCard
-        title="Cost by model"
-        hint="Spend allocated across the models in your stack."
-      >
+      <ChartCard title="Cost by model" hint="Spend allocated across the models in your stack.">
         <Bars
           color="#0EA5E9"
+          onRowClick={(r) => navigate({ to: '/logs', search: { model: r.label, fromAnalytics: true, analyticsItem: r.label } })}
           rows={[
             { label: "gpt-4o", value: 5240, right: "$5,240" },
             { label: "claude-sonnet-4-5", value: 2820, right: "$2,820" },
@@ -241,6 +237,7 @@ function CostTab() {
         <AreaChart
           color="#7C3AED"
           data={[18, 19, 17, 18, 16, 17, 15, 16, 14, 15, 14, 13, 12, 13, 12]}
+          onClick={() => navigate({ to: '/logs', search: { time: '7d', fromAnalytics: true, analyticsItem: 'Avg cost per request' } })}
         />
       </ChartCard>
     </div>
@@ -248,6 +245,7 @@ function CostTab() {
 }
 
 function PerfTab() {
+  const navigate = useNavigate({ from: "/analytics" });
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <ChartCard title="Latency p50 / p95 / p99" hint="End-to-end response time percentiles.">
@@ -273,26 +271,43 @@ function PerfTab() {
         </div>
       </ChartCard>
       <ChartCard title="Time to first token (TTFT)" hint="Lower is better — affects perceived UX.">
-        <AreaChart color="#10B981" data={[420, 380, 360, 340, 320, 310, 300, 290, 280, 280, 270, 260]} />
+        <AreaChart
+          color="#10B981"
+          data={[420, 380, 360, 340, 320, 310, 300, 290, 280, 280, 270, 260]}
+          onClick={() => navigate({ to: '/logs', search: { time: '7d', fromAnalytics: true, analyticsItem: 'TTFT' } })}
+        />
       </ChartCard>
       <ChartCard title="Tokens per second" hint="Throughput — output tokens generated per second.">
-        <AreaChart color="#0EA5E9" data={[42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64]} />
+        <AreaChart 
+          color="#0EA5E9" 
+          data={[42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64]} 
+          onClick={() => navigate({ to: '/logs', search: { time: '7d', fromAnalytics: true, analyticsItem: 'Tokens per second' } })}
+        />
       </ChartCard>
       <ChartCard title="Requests per second" hint="Sustained throughput across providers.">
-        <AreaChart data={[120, 140, 138, 152, 168, 180, 192, 210, 220, 234, 248, 262]} />
+        <AreaChart 
+          data={[120, 140, 138, 152, 168, 180, 192, 210, 220, 234, 248, 262]} 
+          onClick={() => navigate({ to: '/logs', search: { time: '7d', fromAnalytics: true, analyticsItem: 'Requests per second' } })}
+        />
       </ChartCard>
     </div>
   );
 }
 
 function ReliabilityTab() {
+  const navigate = useNavigate({ from: "/analytics" });
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <ChartCard title="Error rate" hint="Share of requests returning non-2xx status.">
-        <AreaChart color="#EF4444" data={[1.2, 0.9, 1.4, 1.1, 0.8, 0.6, 0.7, 0.5, 0.6, 0.5, 0.4, 0.4]} />
+        <AreaChart
+          color="#EF4444"
+          data={[1.2, 0.9, 1.4, 1.1, 0.8, 0.6, 0.7, 0.5, 0.6, 0.5, 0.4, 0.4]}
+          onClick={() => navigate({ to: '/logs', search: { status: 'error', fromAnalytics: true, analyticsItem: 'Error rate' } })}
+        />
       </ChartCard>
       <ChartCard title="HTTP status breakdown" hint="Distribution of responses by status code.">
         <Bars
+          onRowClick={(r) => navigate({ to: '/logs', search: { status: r.label.includes('200') ? 'success' : 'error', q: r.label.split(' ')[0], fromAnalytics: true, analyticsItem: r.label } })}
           rows={[
             { label: "200 OK", value: 98412, right: "98.4%" },
             { label: "429 Rate-limited", value: 942, right: "0.9%" },
@@ -302,12 +317,20 @@ function ReliabilityTab() {
           color="#F59E0B"
         />
       </ChartCard>
-      <ChartCard title="Rate-limit (429) hit rate" hint="Indicates approaching provider quota ceiling.">
-        <AreaChart color="#F59E0B" data={[2.1, 1.8, 1.6, 1.4, 1.2, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4]} />
+      <ChartCard
+        title="Rate-limit (429) hit rate"
+        hint="Indicates approaching provider quota ceiling."
+      >
+        <AreaChart
+          color="#F59E0B"
+          data={[2.1, 1.8, 1.6, 1.4, 1.2, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4]}
+          onClick={() => navigate({ to: '/logs', search: { status: 'error', q: '429', fromAnalytics: true, analyticsItem: 'Rate-limits' } })}
+        />
       </ChartCard>
       <ChartCard title="Retries per request" hint="Higher values suggest upstream instability.">
         <Bars
           color="#7C3AED"
+          onRowClick={() => navigate({ to: '/logs', search: { status: 'error', fromAnalytics: true, analyticsItem: 'Retries' } })}
           rows={[
             { label: "0 retries", value: 92 },
             { label: "1 retry", value: 6 },
@@ -321,14 +344,19 @@ function ReliabilityTab() {
 }
 
 function UsageTab() {
+  const navigate = useNavigate({ from: "/analytics" });
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <ChartCard title="Requests over time" hint="Volume captured by the proxy.">
-        <AreaChart data={[1240, 1380, 1620, 1840, 2120, 2380, 2640, 2940, 3220, 3520, 3820, 4140]} />
+        <AreaChart
+          data={[1240, 1380, 1620, 1840, 2120, 2380, 2640, 2940, 3220, 3520, 3820, 4140]}
+          onClick={() => navigate({ to: '/logs', search: { time: '7d', fromAnalytics: true, analyticsItem: 'Requests over time' } })}
+        />
       </ChartCard>
       <ChartCard title="Model mix" hint="Share of requests routed to each model.">
         <Bars
           color="#0EA5E9"
+          onRowClick={(r) => navigate({ to: '/logs', search: { model: r.label, fromAnalytics: true, analyticsItem: r.label } })}
           rows={[
             { label: "gpt-4o-mini", value: 42, right: "42%" },
             { label: "gpt-4o", value: 28, right: "28%" },
@@ -338,8 +366,12 @@ function UsageTab() {
           ]}
         />
       </ChartCard>
-      <ChartCard title="Avg prompt vs completion length" hint="Token shape across captured requests.">
+      <ChartCard
+        title="Avg prompt vs completion length"
+        hint="Token shape across captured requests."
+      >
         <Bars
+          onRowClick={() => navigate({ to: '/logs', search: { fromAnalytics: true, analyticsItem: 'Token shapes' } })}
           rows={[
             { label: "Avg input tokens", value: 824, right: "824" },
             { label: "Avg output tokens", value: 312, right: "312" },
@@ -350,6 +382,7 @@ function UsageTab() {
       <ChartCard title="Endpoint mix" hint="Traffic split by feature / endpoint.">
         <Bars
           color="#10B981"
+          onRowClick={(r) => navigate({ to: '/logs', search: { q: r.label, fromAnalytics: true, analyticsItem: r.label } })}
           rows={[
             { label: "/chat/completions", value: 62, right: "62%" },
             { label: "/messages", value: 24, right: "24%" },

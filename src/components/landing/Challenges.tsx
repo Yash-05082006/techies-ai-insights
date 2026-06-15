@@ -4,22 +4,26 @@ import { TrendingUp, EyeOff, Activity, AlertTriangle } from "lucide-react";
 const challenges = [
   {
     title: "Uncontrolled AI Costs",
-    description: "API bills grow unexpectedly with no clear way to attribute spend to specific users or features.",
+    description:
+      "API bills grow unexpectedly with no clear way to attribute spend to specific users or features.",
     icon: <TrendingUp className="h-5 w-5 text-[#EF4444]" />,
   },
   {
     title: "No Visibility Into LLM Usage",
-    description: "Operating blindly without understanding which prompts or models are driving the majority of traffic.",
+    description:
+      "Operating blindly without understanding which prompts or models are driving the majority of traffic.",
     icon: <EyeOff className="h-5 w-5 text-[#F59E0B]" />,
   },
   {
     title: "Difficult Debugging & Tracing",
-    description: "Hours wasted trying to reproduce hallucinated responses and debug complex multi-step LLM chains.",
+    description:
+      "Hours wasted trying to reproduce hallucinated responses and debug complex multi-step LLM chains.",
     icon: <Activity className="h-5 w-5 text-[#2563EB]" />,
   },
   {
     title: "Model Performance Degradation",
-    description: "Quality silently drops as models are updated or context windows are filled with irrelevant data.",
+    description:
+      "Quality silently drops as models are updated or context windows are filled with irrelevant data.",
     icon: <AlertTriangle className="h-5 w-5 text-[#10B981]" />,
   },
 ];
@@ -49,12 +53,8 @@ export function Challenges() {
               <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#F1F5F9] transition-transform duration-300 group-hover:scale-110">
                 {challenge.icon}
               </div>
-              <h3 className="mb-2 text-[16px] font-semibold text-[#0F172A]">
-                {challenge.title}
-              </h3>
-              <p className="text-[14px] leading-relaxed text-[#475569]">
-                {challenge.description}
-              </p>
+              <h3 className="mb-2 text-[16px] font-semibold text-[#0F172A]">{challenge.title}</h3>
+              <p className="text-[14px] leading-relaxed text-[#475569]">{challenge.description}</p>
             </motion.div>
           ))}
         </div>

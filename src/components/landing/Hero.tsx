@@ -3,8 +3,6 @@ import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
 import heroVisual from "@/assets/hero_visual.png";
 import { AuraBackground } from "./AuraBackground";
 
-
-
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
@@ -56,8 +54,8 @@ export function Hero() {
           transition={{ delay: 0.5, duration: 0.8, ease }}
           className="mx-auto mt-7 max-w-2xl text-center text-[17px] leading-relaxed text-[#475569]"
         >
-          TRACEai helps teams monitor usage, trace requests, identify cost leaks 
-          and optimize AI spend before it becomes a problem.
+          TRACEai helps teams monitor usage, trace requests, identify cost leaks and optimize AI
+          spend before it becomes a problem.
         </motion.p>
 
         {/* CTAs */}
@@ -110,7 +108,6 @@ export function Hero() {
             />
           </motion.div>
         </div>
-
       </div>
     </section>
   );

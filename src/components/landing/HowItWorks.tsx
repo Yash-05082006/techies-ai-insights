@@ -74,7 +74,10 @@ export function HowItWorks() {
                 <div className="relative">
                   <div
                     className="absolute -inset-8 -z-10 rounded-[40px] opacity-50 blur-3xl"
-                    style={{ background: "radial-gradient(closest-side, rgba(37,99,235,0.18), transparent 70%)" }}
+                    style={{
+                      background:
+                        "radial-gradient(closest-side, rgba(37,99,235,0.18), transparent 70%)",
+                    }}
                   />
                   <div className="relative group rounded-3xl border border-[#0F172A]/8 bg-white/80 p-6 backdrop-blur-xl soft-shadow transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                     <div className="flex items-center justify-between">
@@ -116,7 +119,10 @@ export function HowItWorks() {
                   </div>
 
                   {/* Node on connector */}
-                  <div className="absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563EB] ring-4 ring-white lg:block" style={{ left: i % 2 ? "-2rem" : "calc(100% + 2rem)" }} />
+                  <div
+                    className="absolute left-1/2 top-1/2 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2563EB] ring-4 ring-white lg:block"
+                    style={{ left: i % 2 ? "-2rem" : "calc(100% + 2rem)" }}
+                  />
                 </div>
               </motion.div>
             ))}

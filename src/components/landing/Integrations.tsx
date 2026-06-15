@@ -33,7 +33,9 @@ export function Integrations() {
             >
               <div
                 className="absolute -inset-px -z-10 rounded-3xl opacity-0 blur-2xl transition-opacity group-hover:opacity-40"
-                style={{ background: `radial-gradient(circle at 30% 0%, ${i.color}, transparent 60%)` }}
+                style={{
+                  background: `radial-gradient(circle at 30% 0%, ${i.color}, transparent 60%)`,
+                }}
               />
               <div className="flex items-center gap-4">
                 <div

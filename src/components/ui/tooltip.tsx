@@ -4,6 +4,7 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 import { cn } from "@/lib/utils";
+import { Info } from "lucide-react";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
@@ -29,4 +30,26 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+function InfoTooltip({ content, className }: { content: React.ReactNode; className?: string }) {
+  return (
+    <Tooltip delayDuration={200}>
+      <TooltipTrigger
+        type="button"
+        className="inline-flex translate-y-[2px] items-center justify-center text-[#94A3B8] hover:text-[#475569]"
+      >
+        <Info className="h-3.5 w-3.5" />
+      </TooltipTrigger>
+      <TooltipContent
+        side="top"
+        className={cn(
+          "max-w-[260px] text-center text-[12px] leading-relaxed font-normal bg-[#0F172A] text-white",
+          className,
+        )}
+      >
+        {content}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, InfoTooltip };

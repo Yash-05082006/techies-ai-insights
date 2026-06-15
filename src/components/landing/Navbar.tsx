@@ -32,7 +32,7 @@ export function Navbar() {
       className="fixed top-0 z-50 w-full"
       variants={{
         visible: { y: 0, opacity: 1 },
-        hidden: { y: "-100%", opacity: 0 }
+        hidden: { y: "-100%", opacity: 0 },
       }}
       initial="visible"
       animate={hidden ? "hidden" : "visible"}
@@ -62,7 +62,7 @@ export function Navbar() {
                 href={l.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector(l.href)?.scrollIntoView({ behavior: 'smooth' });
+                  document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="relative rounded-lg px-3 py-2 text-[13px] font-medium text-[#475569] transition-colors duration-200 hover:text-[#2563EB]"
               >
@@ -74,8 +74,12 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             <div className="hidden items-center gap-1.5 md:flex">
-              <IconButton><Bell className="h-4 w-4" /></IconButton>
-              <IconButton><Settings className="h-4 w-4" /></IconButton>
+              <IconButton>
+                <Bell className="h-4 w-4" />
+              </IconButton>
+              <IconButton>
+                <Settings className="h-4 w-4" />
+              </IconButton>
               <div className="ml-2 flex items-center gap-2 rounded-full border border-[#0F172A]/8 bg-white/70 py-1 pl-1 pr-3">
                 <div className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#2563EB] to-[#0EA5E9] text-white">
                   <User className="h-3.5 w-3.5" />

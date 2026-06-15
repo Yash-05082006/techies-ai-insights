@@ -144,8 +144,8 @@ export function DashboardMockup() {
                     Route 80% of summarization to GPT-4o-mini
                   </h4>
                   <p className="mt-1 text-[12.5px] leading-relaxed text-[#64748B]">
-                    Quality delta across 2,400 evaluated traces: -0.4%. Estimated monthly
-                    savings $4,820 with no measurable latency regression.
+                    Quality delta across 2,400 evaluated traces: -0.4%. Estimated monthly savings
+                    $4,820 with no measurable latency regression.
                   </p>
                   <div className="mt-3 flex gap-2">
                     <button className="rounded-lg bg-[#0F172A] px-3 py-1.5 text-[11px] font-semibold text-white">
@@ -193,9 +193,7 @@ export function DashboardMockup() {
         <div className="mt-2 text-[13px] font-semibold text-[#0F172A]">
           /chat endpoint spend ↑ 312%
         </div>
-        <div className="mt-1 text-[11px] text-[#64748B]">
-          Runaway loop in onboarding-agent v2.1
-        </div>
+        <div className="mt-1 text-[11px] text-[#64748B]">Runaway loop in onboarding-agent v2.1</div>
         <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-[#F1F5F9]">
           <motion.div
             className="h-full bg-gradient-to-r from-[#EF4444] to-[#F59E0B]"
@@ -219,9 +217,7 @@ export function DashboardMockup() {
             Caching enabled
           </span>
         </div>
-        <div className="mt-2 text-[13px] font-semibold text-[#0F172A]">
-          Saved $1,284 today
-        </div>
+        <div className="mt-2 text-[13px] font-semibold text-[#0F172A]">Saved $1,284 today</div>
         <div className="mt-3 grid grid-cols-7 items-end gap-1 h-10">
           {[40, 55, 38, 70, 48, 82, 64].map((h, i) => (
             <motion.div
@@ -253,9 +249,14 @@ function StatCard({
   trend: "up" | "down";
   icon: React.ReactNode;
 }) {
-  const good = trend === "down" && label.includes("Spend") || trend === "down" && label.includes("Latency") || (trend === "up" && (label.includes("Tokens") || label.includes("Requests")));
+  const good =
+    (trend === "down" && label.includes("Spend")) ||
+    (trend === "down" && label.includes("Latency")) ||
+    (trend === "up" && (label.includes("Tokens") || label.includes("Requests")));
   return (
-    <div className={`${className} group rounded-2xl border border-[#0F172A]/6 bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-md`}>
+    <div
+      className={`${className} group rounded-2xl border border-[#0F172A]/6 bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-md`}
+    >
       <div className="flex items-center justify-between">
         <span className="text-[11px] font-medium uppercase tracking-wider text-[#94A3B8]">
           {label}
@@ -264,11 +265,15 @@ function StatCard({
           {icon}
         </span>
       </div>
-      <div className="mt-2 text-[22px] font-semibold tracking-tight text-[#0F172A]">
-        {value}
-      </div>
-      <div className={`mt-1 flex items-center gap-1 text-[11px] font-medium ${good ? "text-[#10B981]" : "text-[#EF4444]"}`}>
-        {trend === "up" ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
+      <div className="mt-2 text-[22px] font-semibold tracking-tight text-[#0F172A]">{value}</div>
+      <div
+        className={`mt-1 flex items-center gap-1 text-[11px] font-medium ${good ? "text-[#10B981]" : "text-[#EF4444]"}`}
+      >
+        {trend === "up" ? (
+          <ArrowUpRight className="h-3 w-3" />
+        ) : (
+          <ArrowDownRight className="h-3 w-3" />
+        )}
         {delta}
         <span className="text-[#94A3B8] font-normal">vs last week</span>
       </div>
@@ -276,7 +281,17 @@ function StatCard({
   );
 }
 
-function ModelRow({ name, pct, color, cost }: { name: string; pct: number; color: string; cost: string }) {
+function ModelRow({
+  name,
+  pct,
+  color,
+  cost,
+}: {
+  name: string;
+  pct: number;
+  color: string;
+  cost: string;
+}) {
   return (
     <div>
       <div className="flex items-center justify-between text-[12px]">
@@ -311,7 +326,15 @@ function AreaChart() {
           </linearGradient>
         </defs>
         {[0, 1, 2, 3].map((i) => (
-          <line key={i} x1="0" x2="400" y1={i * 35 + 10} y2={i * 35 + 10} stroke="#0F172A" strokeOpacity="0.05" />
+          <line
+            key={i}
+            x1="0"
+            x2="400"
+            y1={i * 35 + 10}
+            y2={i * 35 + 10}
+            stroke="#0F172A"
+            strokeOpacity="0.05"
+          />
         ))}
         <motion.path
           initial={{ pathLength: 0 }}

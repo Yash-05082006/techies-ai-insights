@@ -7,10 +7,7 @@ import { motion } from "framer-motion";
  */
 export function AuraBackground() {
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 -z-[5] overflow-hidden"
-    >
+    <div aria-hidden className="pointer-events-none absolute inset-0 -z-[5] overflow-hidden">
       {/* Primary TRACEai blue blob */}
       <motion.div
         className="absolute -top-32 left-1/4 h-[680px] w-[680px] rounded-full will-change-transform"

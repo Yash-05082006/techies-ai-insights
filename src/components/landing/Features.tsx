@@ -1,12 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  Activity,
-  Coins,
-  LineChart,
-  Gauge,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
+import { Activity, Coins, LineChart, Gauge, ShieldCheck, Sparkles } from "lucide-react";
 
 const features = [
   {
@@ -71,7 +64,9 @@ export function Features() {
               {/* Glow on hover */}
               <div
                 className="absolute -inset-px -z-10 rounded-3xl opacity-0 blur-2xl transition-opacity group-hover:opacity-30"
-                style={{ background: `radial-gradient(circle at top left, ${f.accent}, transparent 60%)` }}
+                style={{
+                  background: `radial-gradient(circle at top left, ${f.accent}, transparent 60%)`,
+                }}
               />
               <div
                 className="relative grid h-12 w-12 place-items-center rounded-2xl text-white transition-transform duration-300 group-hover:scale-110"
@@ -91,7 +86,10 @@ export function Features() {
               </div>
 
               {/* Decorative corner */}
-              <div className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full opacity-[0.04] transition-opacity group-hover:opacity-[0.08]" style={{ background: f.accent }} />
+              <div
+                className="pointer-events-none absolute -bottom-12 -right-12 h-32 w-32 rounded-full opacity-[0.04] transition-opacity group-hover:opacity-[0.08]"
+                style={{ background: f.accent }}
+              />
             </motion.div>
           ))}
         </div>
