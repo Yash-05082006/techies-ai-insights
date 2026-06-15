@@ -7,10 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Runtime settings for the TRACEai API.
-
-    Values are read from environment variables and optional ``backend/.env``.
-    """
+    """Runtime settings for the TRACEai API (single-user hackathon mode)."""
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -18,23 +15,15 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    database_url: str = Field(..., description="PostgreSQL connection URL")
-    jwt_secret: str = Field(default="dev-secret-change-in-production")
-    jwt_algorithm: str = Field(default="HS256")
-    jwt_expire_minutes: int = Field(default=60)
-    cors_origins: str = Field(default="http://localhost:8080")
+    database_url: str = Field(..., description="PostgreSQL connection URL (Neon)")
     openai_api_key: str | None = Field(default=None)
+    gemini_api_key: str | None = Field(default=None)
     log_level: str = Field(default="INFO")
+    cors_origins: str = Field(default="http://localhost:8080")
 
     @property
     def async_database_url(self) -> str:
-        """Return a SQLAlchemy async URL suitable for asyncpg.
-
-        Neon and other providers often supply ``postgresql://`` URLs with
-        query parameters (``sslmode``, ``channel_binding``) that asyncpg
-        does not accept on the URL string. We strip those and pass SSL via
-        ``connect_args`` in ``database.py`` instead.
-        """
+        """Return asyncpg-compatible URL without unsupported query parameters."""
         base_url = self.database_url.split("?")[0]
         if base_url.startswith("postgresql+asyncpg://"):
             return base_url
@@ -44,18 +33,18 @@ class Settings(BaseSettings):
 
     @property
     def database_requires_ssl(self) -> bool:
-        """Whether the configured database URL requests SSL."""
+        """Whether SSL is required (Neon / cloud Postgres)."""
         return "sslmode=require" in self.database_url or "neon" in self.database_url
 
     @property
     def cors_origin_list(self) -> list[str]:
-        """Parse comma-separated CORS origins into a list."""
+        """Parse comma-separated CORS origins."""
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
 @lru_cache
 def get_settings() -> Settings:
-    """Cached settings singleton — safe to call on every request."""
+    """Cached settings singleton."""
     return Settings()
 
 

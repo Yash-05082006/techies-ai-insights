@@ -1,7 +1,8 @@
-"""Async SQLAlchemy engine and session factory."""
+"""Async SQLAlchemy engine, session factory, and connectivity helpers."""
 
 from collections.abc import AsyncGenerator
 
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -11,23 +12,19 @@ from sqlalchemy.ext.asyncio import (
 
 from app.config import settings
 
-# Module-level engine and session factory — initialized during app lifespan.
 engine: AsyncEngine | None = None
 async_session_factory: async_sessionmaker[AsyncSession] | None = None
 
 
 def _build_connect_args() -> dict:
-    """Build asyncpg connect arguments (SSL for Neon / cloud Postgres)."""
+    """asyncpg SSL settings for Neon."""
     if settings.database_requires_ssl:
         return {"ssl": True}
     return {}
 
 
 async def init_db() -> None:
-    """Create the async engine and session factory.
-
-    Called once when the FastAPI application starts (lifespan startup).
-    """
+    """Create the async engine and session factory (lifespan startup)."""
     global engine, async_session_factory
 
     engine = create_async_engine(
@@ -46,7 +43,7 @@ async def init_db() -> None:
 
 
 async def close_db() -> None:
-    """Dispose of the connection pool on application shutdown."""
+    """Dispose of the connection pool (lifespan shutdown)."""
     global engine, async_session_factory
 
     if engine is not None:
@@ -55,8 +52,21 @@ async def close_db() -> None:
     async_session_factory = None
 
 
+async def check_database_connection() -> bool:
+    """Ping the database with SELECT 1."""
+    if engine is None:
+        return False
+
+    try:
+        async with engine.connect() as connection:
+            await connection.execute(text("SELECT 1"))
+        return True
+    except Exception:
+        return False
+
+
 async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
-    """Yield a database session for request-scoped dependency injection."""
+    """Yield a request-scoped async session."""
     if async_session_factory is None:
         raise RuntimeError("Database is not initialized. Did the app lifespan run?")
 
